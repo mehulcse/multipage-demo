@@ -4,12 +4,16 @@ import { TabPanel } from '@material-ui/lab';
 import TabContext from '@material-ui/lab/TabContext';
 import { Link as RouterLink } from 'react-router-dom';
 import useDashboard from './dashboard-hook';
+import RenderInWindow from '../../components/WindowComponent';
+import Demo from '../Demo';
 
 const Dashboard = () => {
   const {
     data,
     handleChange,
     handleChangeValue,
+    openWindow,
+    setOpenWindow,
   } = useDashboard();
 
   const handleTabChange = (_: any, value: number) => {
@@ -23,7 +27,8 @@ const Dashboard = () => {
       width="100%"
     >
       <Box width="100%" height="10vh" display="flex" justifyContent="flex-end">
-        <Button variant="contained" color="primary" target="_blank" component={RouterLink} to="/demo">Demo Screen</Button>
+        <Button variant="contained" color="primary" target="_blank" component={RouterLink} to="/demo">Demo Tab</Button>
+        <Button variant="contained" color="primary" onClick={() => setOpenWindow(true)}>Demo Window</Button>
       </Box>
       <Box
         width="100%"
@@ -89,6 +94,11 @@ const Dashboard = () => {
           </TabPanel>
         </TabContext>
       </Box>
+      {openWindow ? (
+        <RenderInWindow>
+          <Demo />
+        </RenderInWindow>
+      ) : null}
     </Box>
   );
 };

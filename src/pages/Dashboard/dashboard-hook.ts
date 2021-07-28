@@ -1,4 +1,4 @@
-import { ChangeEvent } from 'react';
+import { ChangeEvent, useState } from 'react';
 import useLocalStorage from '../../hooks/useLocalStorage';
 
 const initialData = {
@@ -9,13 +9,19 @@ const initialData = {
 };
 
 const useDashboard = () => {
+  const [openWindow, setOpenWindow] = useState(false);
   const [data, setData] = useLocalStorage('demoData', initialData);
+  const channel = new MessageChannel();
 
   const handleChange = (key: string) => (event: ChangeEvent<HTMLInputElement>) => {
     setData({
       ...data,
       [key]: event?.target?.value || '',
     });
+    if (openWindow) {
+      // @ts-ignore
+      window.postMessage(data, [channel.port2]);
+    }
   };
 
   const handleChangeValue = (key: string, value: any) => {
@@ -29,6 +35,8 @@ const useDashboard = () => {
     data,
     handleChange,
     handleChangeValue,
+    openWindow,
+    setOpenWindow,
   };
 };
 
