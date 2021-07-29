@@ -4,7 +4,7 @@ import { TabPanel } from '@material-ui/lab';
 import TabContext from '@material-ui/lab/TabContext';
 import useDemo from './demo-hook';
 
-const Demo = () => {
+const DemoPopup = () => {
   const {
     data,
   } = useDemo();
@@ -58,4 +58,4 @@ const Demo = () => {
   );
 };
 
-export default Demo;
+export default DemoPopup;

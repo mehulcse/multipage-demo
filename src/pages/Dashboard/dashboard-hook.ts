@@ -1,7 +1,8 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useRef, useState } from 'react';
 import useLocalStorage from '../../hooks/useLocalStorage';
+import { EVENT_TYPE, METHOD } from '../../variables/constants';
 
-const initialData = {
+export const initialData = {
   firstName: '',
   lastName: '',
   ageGroup: '',
@@ -9,34 +10,46 @@ const initialData = {
 };
 
 const useDashboard = () => {
-  const [openWindow, setOpenWindow] = useState(false);
+  const [method, setMethod] = useState(METHOD.POPUP);
   const [data, setData] = useLocalStorage('demoData', initialData);
+  const [popupData, setPopupData] = useState(initialData);
+  const newWindow = useRef<any>(null);
   const channel = new MessageChannel();
 
   const handleChange = (key: string) => (event: ChangeEvent<HTMLInputElement>) => {
-    setData({
-      ...data,
-      [key]: event?.target?.value || '',
-    });
-    if (openWindow) {
-      // @ts-ignore
-      window.postMessage(data, [channel.port2]);
-    }
+    handleChangeValue(key, event.target.value);
   };
 
   const handleChangeValue = (key: string, value: any) => {
-    setData({
-      ...data,
-      [key]: value || '',
-    });
+    const updatedData = {
+      ...(method === METHOD.POPUP ? popupData : data),
+      [key]: value,
+    };
+    if (method === METHOD.POPUP) {
+      setPopupData(updatedData);
+      newWindow?.current?.postMessage({
+        ...updatedData,
+        type: EVENT_TYPE,
+      }, [channel.port2]);
+    } else if (method === METHOD.LOCAL_STORAGE) {
+      setData(updatedData);
+    }
   };
 
+  const openNewWindow = () => {
+    newWindow.current = window.open(
+      '/demo-popup',
+      'MyWindow',
+      '"height=640,width=960,toolbar=no,menubar=no,scrollbars=no,location=no,status=no"',
+    );
+  };
   return {
-    data,
+    data: method === METHOD.POPUP ? popupData : data,
     handleChange,
     handleChangeValue,
-    openWindow,
-    setOpenWindow,
+    openNewWindow,
+    method,
+    setMethod,
   };
 };
 

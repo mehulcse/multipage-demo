@@ -16,7 +16,7 @@ const RenderInWindow = (props: any) => {
     if (container) {
       // Create window
       newWindow.current = window.open(
-        '/',
+        '/demo',
         'MyWindow',
         '"height=640,width=960,toolbar=no,menubar=no,scrollbars=no,location=no,status=no"',
       );

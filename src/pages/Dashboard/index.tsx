@@ -1,19 +1,31 @@
 import React from 'react';
-import { AppBar, Box, Button, MenuItem, Tab, Tabs, TextField } from '@material-ui/core';
+import {
+  AppBar,
+  Box,
+  Button,
+  FormControlLabel,
+  MenuItem,
+  RadioGroup,
+  Tab,
+  Tabs,
+  TextField,
+  FormControl,
+  FormLabel, Radio,
+} from '@material-ui/core';
 import { TabPanel } from '@material-ui/lab';
 import TabContext from '@material-ui/lab/TabContext';
 import { Link as RouterLink } from 'react-router-dom';
 import useDashboard from './dashboard-hook';
-import RenderInWindow from '../../components/WindowComponent';
-import Demo from '../Demo';
+import { METHOD } from '../../variables/constants';
 
 const Dashboard = () => {
   const {
     data,
     handleChange,
     handleChangeValue,
-    openWindow,
-    setOpenWindow,
+    method,
+    setMethod,
+    openNewWindow,
   } = useDashboard();
 
   const handleTabChange = (_: any, value: number) => {
@@ -27,8 +39,15 @@ const Dashboard = () => {
       width="100%"
     >
       <Box width="100%" height="10vh" display="flex" justifyContent="flex-end">
-        <Button variant="contained" color="primary" target="_blank" component={RouterLink} to="/demo">Demo Tab</Button>
-        <Button variant="contained" color="primary" onClick={() => setOpenWindow(true)}>Demo Window</Button>
+        <FormControl component="fieldset">
+          <FormLabel component="legend">Method</FormLabel>
+          <RadioGroup aria-label="gender" name="gender1" value={method} onChange={(event: any) => setMethod(event.target.value)}>
+            <FormControlLabel value={METHOD.LOCAL_STORAGE} control={<Radio />} label="Local Storage" />
+            <FormControlLabel value={METHOD.POPUP} control={<Radio />} label="Popup" />
+          </RadioGroup>
+        </FormControl>
+        {method === METHOD.LOCAL_STORAGE && <Button variant="contained" color="primary" target="_blank" component={RouterLink} to="/demo">Demo Tab</Button>}
+        {method === METHOD.POPUP && <Button variant="contained" color="primary" onClick={openNewWindow}>Demo Window</Button>}
       </Box>
       <Box
         width="100%"
@@ -37,7 +56,7 @@ const Dashboard = () => {
         flexDirection="column"
         justifyContent="center"
         alignItems="center"
-        padding="0 30%"
+        padding="0 10%"
       >
         <Box width="100%" my={2}>
           <TextField
@@ -94,11 +113,6 @@ const Dashboard = () => {
           </TabPanel>
         </TabContext>
       </Box>
-      {openWindow ? (
-        <RenderInWindow>
-          <Demo />
-        </RenderInWindow>
-      ) : null}
     </Box>
   );
 };
