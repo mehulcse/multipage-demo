@@ -43,11 +43,12 @@ const Dashboard = () => {
           <FormLabel component="legend">Method</FormLabel>
           <RadioGroup aria-label="gender" name="gender1" value={method} onChange={(event: any) => setMethod(event.target.value)}>
             <FormControlLabel value={METHOD.LOCAL_STORAGE} control={<Radio />} label="Local Storage" />
-            <FormControlLabel value={METHOD.POPUP} control={<Radio />} label="Popup" />
+            <FormControlLabel value={METHOD.POPUP} control={<Radio />} label="Channel Message API" />
+            <FormControlLabel value={METHOD.BROADCAST} control={<Radio />} label="Broadcast API" />
           </RadioGroup>
         </FormControl>
         {method === METHOD.LOCAL_STORAGE && <Button variant="contained" color="primary" target="_blank" component={RouterLink} to="/demo">Demo Tab</Button>}
-        {method === METHOD.POPUP && <Button variant="contained" color="primary" onClick={openNewWindow}>Demo Window</Button>}
+        {(method === METHOD.POPUP || method === METHOD.BROADCAST) && <Button variant="contained" color="primary" onClick={openNewWindow}>Demo Window</Button>}
       </Box>
       <Box
         width="100%"

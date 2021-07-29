@@ -15,6 +15,7 @@ const useDashboard = () => {
   const [popupData, setPopupData] = useState(initialData);
   const newWindow = useRef<any>(null);
   const channel = new MessageChannel();
+  const broadcastChannel = new BroadcastChannel(EVENT_TYPE);
 
   const handleChange = (key: string) => (event: ChangeEvent<HTMLInputElement>) => {
     handleChangeValue(key, event.target.value);
@@ -22,10 +23,13 @@ const useDashboard = () => {
 
   const handleChangeValue = (key: string, value: any) => {
     const updatedData = {
-      ...(method === METHOD.POPUP ? popupData : data),
+      ...((method === METHOD.POPUP || method === METHOD.BROADCAST) ? popupData : data),
       [key]: value,
     };
-    if (method === METHOD.POPUP) {
+    if (method === METHOD.BROADCAST) {
+      setPopupData(updatedData);
+      broadcastChannel?.postMessage(updatedData);
+    } else if (method === METHOD.POPUP) {
       setPopupData(updatedData);
       newWindow?.current?.postMessage({
         ...updatedData,
@@ -38,13 +42,13 @@ const useDashboard = () => {
 
   const openNewWindow = () => {
     newWindow.current = window.open(
-      '/demo-popup',
+      method === METHOD.POPUP ? '/demo-channel-message' : '/demo-broadcast-channel',
       'MyWindow',
       '"height=640,width=960,toolbar=no,menubar=no,scrollbars=no,location=no,status=no"',
     );
   };
   return {
-    data: method === METHOD.POPUP ? popupData : data,
+    data: (method === METHOD.POPUP || method === METHOD.BROADCAST) ? popupData : data,
     handleChange,
     handleChangeValue,
     openNewWindow,
