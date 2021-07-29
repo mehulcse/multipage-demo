@@ -27,5 +27,6 @@ We can achieve inter tab communication using following methods on front-end. Two
 |--|--|--|--|
 |Works with| - Tabs| - Tabs <br /> - Popup Window <br /> - iFrame| - Tabs <br /> - Popup Window <br /> - iFrame|
 |Cross Origin|:negative_squared_cross_mark:|:white_check_mark:|:negative_squared_cross_mark:|
-|Pros|- Simple to use. <br/> - Common shared state. <br /> - By default works in case of accidental refresh| - Works with iFrame/Tabs/Windows <br /> - Cross Origin <br />|- Works with iFrame/Tabs/Windows <br />|
-|Cons|- For a large chunk of data, this approach has adverse effects since LocalStorage is synchronous. And hence can block the main UI thread. <br /> - It is possible that we may leave sensitive information in localStorage.| - Partial Support in Safari/IE. <br /> - You need the reference/browser context of child element. | - No support in Safari <br /> - Doesn't support cross origin communication|
+|Browser Support|All|All(Partial Support in Safari, IE)|Other than Safari, IE|
+|Other Pros|- Simple to use. <br/> - Common shared state. <br /> - By default works in case of accidental refresh| - | - |
+|Other Cons|- For a large chunk of data, this approach has adverse effects since LocalStorage is synchronous. And hence can block the main UI thread. <br /> - It is possible that we may leave sensitive information in localStorage.|- You need the reference/browser context of child element. | - |
