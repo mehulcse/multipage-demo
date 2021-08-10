@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.js": "/multipage-demo/static/js/main.aa27af3c.chunk.js",
-    "main.js.map": "/multipage-demo/static/js/main.aa27af3c.chunk.js.map",
+    "main.js": "/multipage-demo/static/js/main.c40da192.chunk.js",
+    "main.js.map": "/multipage-demo/static/js/main.c40da192.chunk.js.map",
     "runtime-main.js": "/multipage-demo/static/js/runtime-main.72818548.js",
     "runtime-main.js.map": "/multipage-demo/static/js/runtime-main.72818548.js.map",
     "static/js/2.a4871a18.chunk.js": "/multipage-demo/static/js/2.a4871a18.chunk.js",
     "static/js/2.a4871a18.chunk.js.map": "/multipage-demo/static/js/2.a4871a18.chunk.js.map",
     "index.html": "/multipage-demo/index.html",
-    "precache-manifest.187864e290e28a15036aa5f951eb5975.js": "/multipage-demo/precache-manifest.187864e290e28a15036aa5f951eb5975.js",
+    "precache-manifest.6e5b706abed3add1433598cbbf1bb761.js": "/multipage-demo/precache-manifest.6e5b706abed3add1433598cbbf1bb761.js",
     "service-worker.js": "/multipage-demo/service-worker.js",
     "static/js/2.a4871a18.chunk.js.LICENSE.txt": "/multipage-demo/static/js/2.a4871a18.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.72818548.js",
     "static/js/2.a4871a18.chunk.js",
-    "static/js/main.aa27af3c.chunk.js"
+    "static/js/main.c40da192.chunk.js"
   ]
 }
